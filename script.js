@@ -17,6 +17,12 @@ const createCard = function(cat, parent){
     const name = document.createElement("h3");
     name.innerText = cat.name;
 
+    let like = "";
+	like.onclick = () => {
+		//....
+		// cat.id
+	}
+
     card.append(img, name);
     parent.append(card);
 }
@@ -36,8 +42,8 @@ fetch("https://sb-cats.herokuapp.com/api/2/venzard/show")
     })
 
 const cat = {
-    id:3,
-    name: "Том",
+    id:5,
+    name: "Томат",
     img_link: "https://documents.infourok.ru/b15649ae-78ff-40d2-810f-49e07e465ac8/0/image001.png"
 }
 
