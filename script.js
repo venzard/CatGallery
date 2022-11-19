@@ -1,4 +1,22 @@
 const container = document.querySelector("main");
+const popupBlock = document.querySelector(".popup-wrapper");
+
+let user = localStorage.getItem("catUser");
+if(!user){
+    user = prompt("Введите имя!")
+    localStorage.setItem("catUser", user)
+}
+
+popupBlock.querySelector(".popup__close").addEventListener("click", function(){
+    popupBlock.classList.remove("active");
+})
+
+document.querySelector("#add").addEventListener("click", function(e){
+    e.preventDefault();
+    popupBlock.classList.add("active");
+})
+
+const addForm = document.forms.addForm;
 const createCard = function(cat, parent){
     const card = document.createElement("div");
     card.className = "card";
@@ -35,23 +53,12 @@ const createCard = function(cat, parent){
     parent.append(card);
 }
 
-const popupBlock = document.querySelector(".popup-wrapper");
 
-popupBlock.querySelector(".popup__close").addEventListener("click", function(){
-    popupBlock.classList.remove("active");
-})
-
-document.querySelector("#add").addEventListener("click", function(e){
-    e.preventDefault();
-    popupBlock.classList.add("active");
-})
-
-const addForm = document.forms.addForm;
 
 // createCard({"name": "Элли",
 // "img_link": "https://www.friendforpet.ru/api/sites/default/files/2022-01/1_25.jpg"}, container)
 
-fetch("https://sb-cats.herokuapp.com/api/2/venzard/show")
+fetch(`https://sb-cats.herokuapp.com/api/2/${user}/show`)
     .then(res => res.json())
     .then(result => {
         console.log(result);
@@ -69,7 +76,7 @@ fetch("https://sb-cats.herokuapp.com/api/2/venzard/show")
 // }
 
 const addCat = function(cat){
-    fetch("https://sb-cats.herokuapp.com/api/2/venzard/add",{
+    fetch(`https://sb-cats.herokuapp.com/api/2/${user}/add`,{
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -87,7 +94,7 @@ const addCat = function(cat){
         })
 }
 const deleteCat = function(id, tag) {
-    fetch(`https://sb-cats.herokuapp.com/api/2/venzard/delete/${id}`,{
+    fetch(`https://sb-cats.herokuapp.com/api/2/${user}/delete/${id}`,{
         method: "DELETE"
     })
     .then(res =>res.json())
