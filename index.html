@@ -19,6 +19,29 @@
         </main>
         <footer>©2022 Frontend 8 - Pretty Cats</footer>
     </div>
+    <div class="popup-wrapper active">
+        <!-- <div class="popup">
+            <div class="popup__close"></div>
+            <div class="popup__content"></div>
+        </div> -->
+        <div class="popup">
+            <div class="popup__close"></div>
+            <div class="popup__content"></div>
+            <h2>Добавить котика</h2>
+                <form id="add">
+                    <input type="text" name="name" placeholder="Имя котика">
+                    <input type="number" name="id" placeholder="id">
+                    <input type="text" name="img_link" placeholder="Ссылка на картинку">
+                    <input type="number" name="age" placeholder="Возраст" min="0">
+                    <input type="number" name="rate" placeholder="Рейтинг" min="0" max="5">
+                    <label for="fav">
+                        <input type="checkbox" name="favourite"> Любимчик
+                    </label>
+                    <textarea name="description" placeholder="Описание"></textarea>
+                    <button type="submit">Добавить</button>
+                </form>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
