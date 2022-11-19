@@ -23,7 +23,15 @@ const createCard = function(cat, parent){
 	// 	// cat.id
 	// }
 
-    card.append(img, name);
+    const del = document.createElement("button")
+    del.innerText = "Delete";
+    del.id = cat.id;
+    del.addEventListener("click", function(e){
+        let id = e.target.id;
+        deleteCat(id, card);
+    })
+
+    card.append(img, name, del);
     parent.append(card);
 }
 
@@ -78,7 +86,18 @@ const addCat = function(cat){
             }
         })
 }
-
+const deleteCat = function(id, tag) {
+    fetch(`https://sb-cats.herokuapp.com/api/2/venzard/delete/${id}`,{
+        method: "DELETE"
+    })
+    .then(res =>res.json())
+    .then(data => {
+        console.log(data);
+        if (data.message === "ok"){
+            tag.remove();
+        }
+    })
+}
 
 addForm.addEventListener("submit", function(e){
     e.preventDefault();
