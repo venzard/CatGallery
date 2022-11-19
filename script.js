@@ -17,15 +17,28 @@ const createCard = function(cat, parent){
     const name = document.createElement("h3");
     name.innerText = cat.name;
 
-    let like = "";
-	like.onclick = () => {
-		//....
-		// cat.id
-	}
+    // let like = "";
+	// like.onclick = () => {
+	// 	//....
+	// 	// cat.id
+	// }
 
     card.append(img, name);
     parent.append(card);
 }
+
+const popupBlock = document.querySelector(".popup-wrapper");
+
+popupBlock.querySelector(".popup__close").addEventListener("click", function(){
+    popupBlock.classList.remove("active");
+})
+
+document.querySelector("#add").addEventListener("click", function(e){
+    e.preventDefault();
+    popupBlock.classList.add("active");
+})
+
+const addForm = document.forms.addForm;
 
 // createCard({"name": "Элли",
 // "img_link": "https://www.friendforpet.ru/api/sites/default/files/2022-01/1_25.jpg"}, container)
@@ -41,13 +54,13 @@ fetch("https://sb-cats.herokuapp.com/api/2/venzard/show")
         }
     })
 
-const cat = {
-    id:5,
-    name: "Томат",
-    img_link: "https://documents.infourok.ru/b15649ae-78ff-40d2-810f-49e07e465ac8/0/image001.png"
-}
+// const cat = {
+//     id:5,
+//     name: "Томат",
+//     img_link: "https://documents.infourok.ru/b15649ae-78ff-40d2-810f-49e07e465ac8/0/image001.png"
+// }
 
-const addCat = function(){
+const addCat = function(cat){
     fetch("https://sb-cats.herokuapp.com/api/2/venzard/add",{
         method: "POST",
         headers: {
@@ -57,19 +70,28 @@ const addCat = function(){
     })
         .then(res => res.json())
         .then(data => {
+            console.log(data);
             if (data.message === "ok"){
                 createCard(cat, container);
+                addForm.reset;
+                popupBlock.classList.remove("active");
             }
         })
 }
 
-const popupBlock = document.querySelector(".popup-wrapper");
 
-popupBlock.querySelector(".popup__close").addEventListener("click", function(){
-    popupBlock.classList.remove("active");
-})
-
-document.querySelector("#add").addEventListener("click", function(e){
+addForm.addEventListener("submit", function(e){
     e.preventDefault();
-    popupBlock.classList.add("active");
+    let body = {};
+
+    for(let i = 0; i < addForm.elements.length; i++){
+        let el = addForm.elements[i];
+        console.log(el);
+        if (el.name){
+            body[el.name] = el.name === "favourite" ? el.checked : el.value
+        }
+    }
+
+    console.log("hey!")
+    addCat(body, addForm);
 })
