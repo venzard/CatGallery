@@ -63,7 +63,7 @@ main {
 	height: 350px;
 	width: 350px;
 }
-.card h3 {
+.card h2 {
 	text-align: center;
 	color: white;
 }
@@ -139,4 +139,10 @@ form textarea{
 
 form textarea::placeholder{
 	color: #542e24;
+}
+
+button{
+	background: #542e24; 
+    color: #b89276; 
+    border: none;
 }

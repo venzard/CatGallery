@@ -66,7 +66,7 @@ const createCard = function(cat, parent) {
 		img.style.backgroundColor = "transparent";
 	}
 
-	const name = document.createElement("h3");
+	const name = document.createElement("h2");
 	name.innerText = cat.name;
 
 	const del = document.createElement("button");
