@@ -69,14 +69,14 @@ const createCard = function(cat, parent) {
 	const name = document.createElement("h2");
 	name.innerText = cat.name;
 
-	const rate = document.createElement("h2");
+	const rate = document.createElement("h3");
 	if(cat.rate){
-		rate.innerText = `Рейтинг ${cat.name}: ${cat.rate}/5`
+		rate.innerText = `Рейтинг ${cat.name}: ${cat.rate}`
 	} else {
-		rate.innerText = `${cat.name} еще не оценен`
+		rate.innerText = `${cat.name} без рейтинга`
 	};
 
-	const favor = document.createElement("h2");
+	const favor = document.createElement("h3");
 	if(cat.favourite){
 		favor.innerText = `Любимый котик ♡`
 	} else {
