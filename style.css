@@ -142,7 +142,11 @@ form textarea::placeholder{
 }
 
 button{
-	background: #542e24; 
-    color: #b89276; 
-    border: none;
+	background: #542e24;
+  	background-color: rgb(84, 46, 36);
+	color: #542e24;
+	border: #542e24;
+	box-shadow: 2px 2px 2px #542e24ed, -0.2em 0 .4em #542e24;
+	background-color: #b89276;
+    border-radius: 5px;
 }

@@ -61,7 +61,7 @@ const createCard = function(cat, parent) {
 	if (cat.img_link) {
 		img.style.backgroundImage = `url(${cat.img_link})`;
 	} else {
-		img.style.backgroundImage = "url(img/cat.png)";
+		img.style.backgroundImage = "url(images/cat.png)";
 		img.style.backgroundSize = "contain";
 		img.style.backgroundColor = "transparent";
 	}
@@ -69,8 +69,22 @@ const createCard = function(cat, parent) {
 	const name = document.createElement("h2");
 	name.innerText = cat.name;
 
+	const rate = document.createElement("h2");
+	if(cat.rate){
+		rate.innerText = `Рейтинг ${cat.name}: ${cat.rate}/5`
+	} else {
+		rate.innerText = `${cat.name} еще не оценен`
+	};
+
+	const favor = document.createElement("h2");
+	if(cat.favourite){
+		favor.innerText = `Любимый котик ♡`
+	} else {
+		favor.innerText = `\n`
+	}
+
 	const del = document.createElement("button");
-	del.innerText = "delete";
+	del.innerText = "Удалить котика";
 	del.id = cat.id;
 	del.addEventListener("click", function(e) {
 		let id = e.target.id;
@@ -78,7 +92,7 @@ const createCard = function(cat, parent) {
 	});
 
 	const upd = document.createElement("button");
-	upd.innerText = "update";
+	upd.innerText = "Изменить данные о котике";
 	upd.addEventListener("click", function(e) {
 		popupUpd.classList.add("active");
 		popupBlock.classList.add("active");
@@ -86,7 +100,7 @@ const createCard = function(cat, parent) {
 		updForm.setAttribute("data-id", cat.id);
 	})
 
-	card.append(img, name, del, upd);
+	card.append(upd, img, name, favor, rate, del);
 	parent.append(card);
 }
 const setCards = function(arr) {
@@ -148,9 +162,9 @@ if (!user) {
 	localStorage.setItem("catUser", user);
 }
 
-cats = localStorage.getItem("catArr"); // "[{},{}]"
+cats = localStorage.getItem("catArr");
 if (cats) {
-    cats = JSON.parse(cats); // [{}, {}]
+    cats = JSON.parse(cats);
     setCards(cats);
 } else {
     fetch(`https://sb-cats.herokuapp.com/api/2/${user}/show`)
